@@ -33,12 +33,26 @@ jobs:
           cd ${{ secrets.DEST_PATH }}
           chmod +x deploy/setup.sh
           bash deploy/setup.sh
-          sudo cp deploy/gunicorn.service /etc/systemd/system/
-          sudo systemctl daemon-reexec
-          sudo systemctl unmask gunicorn
-          sudo systemctl enable gunicorn
-          sudo systemctl restart gunicorn
+
+          # Ensure gunicorn.service is copied and activated
+          if [ -f deploy/gunicorn.service ]; then
+            sudo cp deploy/gunicorn.service /etc/systemd/system/
+            sudo systemctl daemon-reexec
+            sudo systemctl unmask gunicorn || true
+            sudo systemctl enable gunicorn
+            sudo systemctl restart gunicorn
+          else
+            echo "⚠️ gunicorn.service not found. Skipping gunicorn setup."
+          fi
+
+          # Install Nginx if not already installed
+          if ! command -v nginx &> /dev/null; then
+            echo "📦 Nginx not found. Installing..."
+            sudo dnf install -y nginx
+          fi
+
+          # Configure Nginx
           sudo mkdir -p /etc/nginx/conf.d
           sudo cp deploy/nginx.conf /etc/nginx/conf.d/brochure.conf
-          sudo nginx -t && sudo systemctl reload nginx
+          sudo nginx -t && sudo systemctl enable nginx && sudo systemctl restart nginx
 
