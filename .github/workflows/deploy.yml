@@ -13,13 +13,18 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Copy app files to EC2
+    - name: Copy app files to EC2 (exclude .github)
       uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PRIVATE_KEY }}
-        source: "."
+        source: |
+          app.py
+          requirements.txt
+          templates
+          deploy
+          static
         target: ${{ secrets.DEST_PATH }}
 
     - name: Run remote setup script on EC2
@@ -38,4 +43,6 @@ jobs:
           sudo systemctl restart gunicorn
           sudo cp deploy/nginx.conf /etc/nginx/conf.d/brochure.conf
           sudo nginx -t && sudo systemctl reload nginx
+
+
 
