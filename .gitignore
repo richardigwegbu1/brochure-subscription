@@ -1,0 +1,7 @@
+# Ignore Terraform and key files
+*.tfstate
+*.tfstate.*
+.terraform/
+brochure_key
+brochure_key.pub
+terraform.tfvars
