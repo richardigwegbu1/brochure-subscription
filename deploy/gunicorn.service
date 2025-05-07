@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn daemon for brochure app
+After=network.target
+
+[Service]
+User=ec2-user
+Group=nginx
+WorkingDirectory=/var/www/brochure-subscription
+ExecStart=/home/ec2-user/.local/bin/gunicorn -w 3 -b 127.0.0.1:8000 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
