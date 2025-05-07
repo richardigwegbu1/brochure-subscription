@@ -35,8 +35,10 @@ jobs:
           bash deploy/setup.sh
           sudo cp deploy/gunicorn.service /etc/systemd/system/
           sudo systemctl daemon-reexec
+          sudo systemctl unmask gunicorn
           sudo systemctl enable gunicorn
           sudo systemctl restart gunicorn
+          sudo mkdir -p /etc/nginx/conf.d
           sudo cp deploy/nginx.conf /etc/nginx/conf.d/brochure.conf
           sudo nginx -t && sudo systemctl reload nginx
 
