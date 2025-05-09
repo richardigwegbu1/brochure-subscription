@@ -1,0 +1,8 @@
+Flask
+python-dotenv
+stripe
+boto3
+gspread
+oauth2client
+Werkzeug
+

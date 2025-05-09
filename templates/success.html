@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container text-center mt-5">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="EnuguUSA Logo" width="120" class="mb-3">
+        <h1 class="text-success">🎉 Thank You, {{ full_name }}!</h1>
+        <p class="lead">Your brochure support has been received.</p>
+        <p>EnuguUSA is very grateful and will ensure your support is put to good use. <strong>See you in Orlando!</strong></p>
+        <p class="fw-bold text-danger">Have you booked your flight and hotel yet?</p>
+        <p class="fw-bold text-primary">Hotel spaces are running out. Call <strong>+1-470-997-6629</strong> now to book your hotel.</p>
+        <a href="{{ url_for('home') }}" class="btn btn-outline-primary mt-3">Submit Another Form</a>
+    </div>
+</body>
+</html>
+

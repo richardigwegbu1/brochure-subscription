@@ -5,3 +5,7 @@
 brochure_key
 brochure_key.pub
 terraform.tfvars
+
+.env
+.env.*
+credentials.json
